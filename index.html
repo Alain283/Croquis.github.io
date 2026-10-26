@@ -1,3 +1,1081 @@
-<h1>Prueba de imagen</h1>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Croquis de la escuela: sus reglamentos y prohibiciones</title>
+  <!-- Google Fonts: Fredoka & Quicksand -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            title: ['Fredoka', 'cursive', 'sans-serif'],
+            body: ['Quicksand', 'sans-serif'],
+          },
+          colors: {
+            pastel: {
+              cream: '#FFFDF9',
+              mint: '#E2F7EB',
+              mintDark: '#2E8B57',
+              pink: '#FFE7EC',
+              pinkDark: '#E06D83',
+              lavender: '#EFEAFF',
+              lavenderDark: '#6D44B8',
+              yellow: '#FEF9C3',
+              yellowDark: '#B47806',
+              blue: '#E0F2FE',
+              blueDark: '#0369A1',
+              peach: '#FFE7D6',
+              peachDark: '#C25E2E',
+            }
+          },
+          boxShadow: {
+            'notebook': '0 10px 30px -5px rgba(60, 64, 67, 0.1), 0 4px 6px -2px rgba(60, 64, 67, 0.05)',
+            'sticky': '0 8px 16px -2px rgba(0, 0, 0, 0.06), 0 2px 4px -1px rgba(0, 0, 0, 0.04)',
+            'polaroid': '0 14px 28px rgba(0,0,0,0.08), 0 10px 10px rgba(0,0,0,0.04)',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      background-color: #FAF8F2;
+      background-image: 
+        radial-gradient(#E5E0D3 1.2px, transparent 1.2px),
+        linear-gradient(to right, rgba(235, 230, 220, 0.4) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(235, 230, 220, 0.4) 1px, transparent 1px);
+      background-size: 24px 24px, 24px 24px, 24px 24px;
+      font-family: 'Quicksand', sans-serif;
+    }
 
-<img src="Halo CE portada.jpg">
+    .washi-tape {
+      background: repeating-linear-gradient(
+        -45deg,
+        rgba(255, 255, 255, 0.4),
+        rgba(255, 255, 255, 0.4) 10px,
+        rgba(255, 214, 165, 0.6) 10px,
+        rgba(255, 214, 165, 0.6) 20px
+      );
+      box-shadow: 0 2px 4px rgba(0,0,0,0.06);
+    }
+
+    .washi-tape-mint {
+      background: repeating-linear-gradient(
+        45deg,
+        rgba(255, 255, 255, 0.4),
+        rgba(255, 255, 255, 0.4) 10px,
+        rgba(187, 247, 208, 0.6) 10px,
+        rgba(187, 247, 208, 0.6) 20px
+      );
+      box-shadow: 0 2px 4px rgba(0,0,0,0.06);
+    }
+
+    .sticky-note {
+      transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .sticky-note:hover {
+      transform: translateY(-4px) scale(1.015);
+    }
+
+    /* Print styles */
+    @media print {
+      header, nav, #quickActions, #lightboxModal, #zoneModal, button, .no-print {
+        display: none !important;
+      }
+      body {
+        background: white !important;
+      }
+      .page-break {
+        page-break-before: always;
+      }
+    }
+  </style>
+</head>
+<body class="text-slate-700 antialiased min-h-screen flex flex-col justify-between selection:bg-rose-200">
+
+  <!-- ======================================================== -->
+  <!-- ENCABEZADO ESCOLAR                                      -->
+  <!-- ======================================================== -->
+  <header class="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b-2 border-stone-200 shadow-sm no-print">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex flex-wrap items-center justify-between gap-3">
+      <div class="flex items-center space-x-3">
+        <div class="w-10 h-10 rounded-2xl bg-amber-100 border-2 border-amber-300 flex items-center justify-center text-xl shadow-inner">
+          🏫
+        </div>
+        <div>
+          <span class="text-[11px] uppercase tracking-wider font-bold text-emerald-800 bg-emerald-100/80 px-2 py-0.5 rounded-full border border-emerald-300">
+            COBAY • Plantel Peto
+          </span>
+          <h1 class="text-sm md:text-base font-title font-bold text-slate-800">
+            Colegio de Bachilleres del Estado de Yucatán
+          </h1>
+        </div>
+      </div>
+
+      <!-- Quick Nav & Tools -->
+      <div class="flex items-center flex-wrap gap-2 text-xs md:text-sm font-bold">
+        <a href="#croquis-section" class="px-3 py-1.5 rounded-full bg-emerald-100 text-emerald-800 hover:bg-emerald-200 transition">📍 Croquis</a>
+        <a href="#obligations-section" class="px-3 py-1.5 rounded-full bg-amber-100 text-amber-800 hover:bg-amber-200 transition">✨ Obligaciones</a>
+        <a href="#rules-section" class="px-3 py-1.5 rounded-full bg-rose-100 text-rose-800 hover:bg-rose-200 transition">🚫 Prohibiciones</a>
+        
+        <!-- Language Switcher Button -->
+        <button onclick="cycleLanguage()" class="px-3 py-1.5 rounded-full bg-violet-100 hover:bg-violet-200 text-violet-800 border border-violet-300 flex items-center gap-1 transition">
+          <span>🌐</span>
+          <span id="langModeText">Bilingüe (EN/ES)</span>
+        </button>
+
+        <!-- Print Button -->
+        <button onclick="window.print()" title="Imprimir reglamento" class="p-1.5 rounded-full bg-stone-100 hover:bg-stone-200 text-stone-700 transition">
+          🖨️
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO BANNER CON ESTILO ESCOLAR PASTEL -->
+  <section class="max-w-6xl mx-auto px-4 pt-8 pb-4 text-center">
+    <div class="relative inline-block mx-auto mb-2">
+      <div class="washi-tape h-4 w-40 absolute -top-3 left-1/2 -translate-x-1/2 rotate-1 rounded z-10 opacity-90"></div>
+      <div class="inline-flex items-center gap-2 bg-pink-100 border border-pink-200 px-4 py-1 rounded-full text-pink-700 text-xs md:text-sm font-bold shadow-sm">
+        🎒 Manual de Convivencia e Infraestructura Escolar
+      </div>
+    </div>
+    
+    <h1 class="text-3xl md:text-5xl font-title font-extrabold text-slate-800 tracking-tight max-w-4xl mx-auto mt-2 leading-tight">
+      Croquis de la escuela: <span class="text-emerald-600 underline decoration-wavy decoration-emerald-300">sus reglamentos</span> y <span class="text-rose-500 underline decoration-wavy decoration-rose-300">prohibiciones</span>
+    </h1>
+    <p class="mt-2 text-slate-600 max-w-2xl mx-auto text-sm md:text-base">
+      Colegio de Bachilleres del Estado de Yucatán - Plantel Peto (COBAY). Consulta las áreas de nuestra institución y conoce las normas para una sana convivencia estudiantil.
+    </p>
+
+    <!-- Global Search -->
+    <div id="quickActions" class="max-w-md mx-auto mt-5 no-print">
+      <div class="relative flex items-center">
+        <input type="text" id="globalSearchInput" onkeyup="handleSearch()" placeholder="Buscar regla o zona escolar (ej. uniforme, celular, domo)..." 
+               class="w-full pl-10 pr-10 py-2.5 rounded-2xl bg-white border-2 border-stone-300 focus:border-emerald-400 focus:outline-none text-xs md:text-sm shadow-sm transition">
+        <span class="absolute left-3.5 text-slate-400 text-sm">🔍</span>
+        <button id="clearSearchBtn" onclick="clearSearch()" class="hidden absolute right-3 text-slate-400 hover:text-slate-600 text-xs bg-stone-100 rounded-full w-5 h-5">✕</button>
+      </div>
+      <p id="searchStatus" class="text-xs text-amber-800 mt-1 font-semibold hidden"></p>
+    </div>
+  </section>
+
+  <!-- ======================================================== -->
+  <!-- 1. SECCIÓN PRINCIPAL SUPERIOR: CROQUIS OFICIAL           -->
+  <!-- ======================================================== -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 w-full">
+    
+    <section id="croquis-section" class="scroll-mt-20">
+      
+      <!-- Section Title Badge -->
+      <div class="flex items-center justify-between mb-4 flex-wrap gap-2">
+        <div class="flex items-center gap-3">
+          <div class="w-9 h-9 rounded-xl bg-emerald-200 border border-emerald-400 flex items-center justify-center font-bold text-emerald-900 shadow-sm text-base">
+            1
+          </div>
+          <div>
+            <h2 class="text-xl md:text-2xl font-title font-bold text-slate-800">Croquis Oficial de la Escuela</h2>
+            <p class="text-xs text-slate-500">Colegio de Bachilleres del Estado de Yucatán - Plantel Peto</p>
+          </div>
+        </div>
+        <div class="flex items-center gap-2 text-xs">
+          <span class="bg-amber-100 text-amber-900 px-3 py-1 rounded-full font-bold border border-amber-300">
+            🔍 Haz clic en la imagen para ver en pantalla completa
+          </span>
+        </div>
+      </div>
+
+      <!-- MARCO POLAROID ESCOLAR PARA EL CROQUIS -->
+      <div class="bg-white rounded-3xl border-4 border-stone-200 shadow-polaroid p-4 md:p-6 relative overflow-hidden">
+        
+        <!-- Washi tape decorations -->
+        <div class="washi-tape h-4 w-32 absolute -top-1 left-8 -rotate-2 z-10 opacity-80"></div>
+        <div class="washi-tape-mint h-4 w-32 absolute -top-1 right-8 rotate-2 z-10 opacity-80"></div>
+
+        <!-- Botón de Zoom y Barra Superior -->
+        <div class="flex items-center justify-between text-xs text-slate-600 pb-3 mb-3 border-b border-stone-100">
+          <div class="flex items-center gap-2 font-medium">
+            <span class="w-3 h-3 rounded-full bg-emerald-400 inline-block"></span>
+            <span>Plano Arquitectónico y Zonas del Plantel</span>
+          </div>
+          <button onclick="openLightbox()" class="flex items-center gap-1.5 bg-slate-800 hover:bg-slate-700 text-white px-3 py-1.5 rounded-xl font-bold shadow-sm transition">
+            <span>🔎</span>
+            <span>Ver a Pantalla Completa / Zoom</span>
+          </button>
+        </div>
+
+        <!-- CONTENEDOR DE LA IMAGEN INSERTADA DEL CROQUIS -->
+        <div class="relative rounded-2xl overflow-hidden border-2 border-stone-200 bg-stone-50 flex items-center justify-center group cursor-pointer" onclick="openLightbox()">
+          <img 
+            id="schoolMapImg"
+            src="croquis del COBAY_1.jpg" 
+            alt="Croquis de la escuela COBAY Plantel Peto" 
+            class="w-full max-h-[640px] object-contain transition-transform duration-300 group-hover:scale-[1.015]"
+            onerror="this.onerror=null; this.src='https://placehold.co/1200x800/E2F7EB/2E8B57?text=Croquis+COBAY+Plantel+Peto';"
+          />
+          <!-- Hover Overlay Guide -->
+          <div class="absolute inset-0 bg-slate-900/10 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center pointer-events-none">
+            <div class="bg-white/95 px-4 py-2 rounded-2xl shadow-lg border border-stone-200 flex items-center gap-2 text-slate-800 font-bold text-sm">
+              <span>🔍</span> Clic para ampliar con lupa
+            </div>
+          </div>
+        </div>
+
+        <!-- ZONAS INTERACTIVAS BADGES (Clickable explorer) -->
+        <div class="mt-5 pt-4 border-t border-stone-200">
+          <div class="flex items-center justify-between mb-2 flex-wrap gap-1">
+            <span class="text-xs font-bold text-slate-700 uppercase tracking-wider">
+              🗺️ Directorio de Áreas (Haz clic en un área para ver su función y reglas):
+            </span>
+            <span class="text-[11px] text-slate-400">12 zonas registradas</span>
+          </div>
+          
+          <div class="flex flex-wrap gap-2 text-xs font-bold" id="zonePillsContainer">
+            <!-- Badges populated by JS -->
+          </div>
+        </div>
+
+        <!-- DESCRIPCIÓN BILINGÜE DEL CROQUIS (School Location Description) -->
+        <div class="mt-6 p-4 md:p-5 bg-amber-50/70 rounded-2xl border-2 border-amber-200/80">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="text-2xl">🧭</span>
+            <h3 class="font-title font-bold text-amber-950 text-base md:text-lg">
+              School Location Description • <span class="font-normal text-amber-800">Descripción del Croquis</span>
+            </h3>
+          </div>
+          
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs md:text-sm text-slate-700 leading-relaxed">
+            <!-- English Paragraph -->
+            <div class="bg-white/80 p-3.5 rounded-xl border border-amber-200 shadow-sm" id="descEnglishBox">
+              <span class="font-bold text-amber-900 block mb-1 uppercase tracking-wider text-[11px]">🇬🇧 English Version:</span>
+              <p class="italic text-slate-800">
+                "Welcome to our school. In the institution, there is a main dome located in front of the entrance. There is a library next to the principal's office and a computer lab next to the tutoring room. Between the store room and the classrooms, there is an audiovisual room. On the right side of the school, there is a parking lot, and behind the classrooms, there is a soccer field. Additionally, there are restrooms near the laboratory and there are basketball courts near the cafeteria. Finally, there are green areas and trees around the place."
+              </p>
+            </div>
+
+            <!-- Spanish Paragraph -->
+            <div class="bg-white/80 p-3.5 rounded-xl border border-amber-200 shadow-sm" id="descSpanishBox">
+              <span class="font-bold text-emerald-900 block mb-1 uppercase tracking-wider text-[11px]">🇲🇽 Versión en Español:</span>
+              <p class="text-slate-700">
+                "Bienvenidos a nuestra escuela. En la institución, hay un domo principal ubicado frente a la entrada. Hay una biblioteca al lado de la dirección y una sala de cómputo junto a la sala de tutorías. Entre el almacén y las aulas, se encuentra la sala audiovisual. En el costado derecho de la escuela hay un estacionamiento, y detrás de las aulas se ubica el campo de fútbol. Además, hay sanitarios cerca del laboratorio y canchas de baloncesto junto a la cafetería. Por último, hay áreas verdes y árboles alrededor de todo el lugar."
+              </p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- ======================================================== -->
+    <!-- 2. SEGUNDA SECCIÓN: OBLIGACIONES ESCOLARES              -->
+    <!-- ======================================================== -->
+    <section id="obligations-section" class="mt-14 scroll-mt-20">
+      
+      <!-- Section Header -->
+      <div class="text-center mb-8">
+        <div class="inline-flex items-center gap-2 bg-amber-100 border border-amber-300 px-4 py-1 rounded-full text-amber-900 font-bold text-xs uppercase tracking-wider mb-2">
+          Deberes y Compromisos del Alumno COBAY
+        </div>
+        <h2 class="text-2xl md:text-4xl font-title font-bold text-slate-800">
+          ✨ School Obligations <span class="text-amber-600">(Obligaciones de la Escuela)</span>
+        </h2>
+        <p class="text-slate-600 max-w-2xl mx-auto text-xs md:text-sm mt-2">
+          Expresadas con los verbos modales <span class="font-bold text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded-md">MUST</span> (deber escolar fundamental) y <span class="font-bold text-blue-700 bg-blue-100 px-2 py-0.5 rounded-md">HAVE TO</span> (requisito/norma institucional).
+        </p>
+      </div>
+
+      <!-- Grid de 16 Obligaciones tipo Post-it pastel -->
+      <div id="obligationsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <!-- Rendered dynamically via JavaScript -->
+      </div>
+    </section>
+
+    <!-- ======================================================== -->
+    <!-- 3. TERCERA SECCIÓN: REGLAMENTOS Y PROHIBICIONES         -->
+    <!-- ======================================================== -->
+    <section id="rules-section" class="mt-14 mb-10 scroll-mt-20">
+      
+      <!-- Section Header -->
+      <div class="text-center mb-8">
+        <div class="inline-flex items-center gap-2 bg-rose-100 border border-rose-300 px-4 py-1 rounded-full text-rose-900 font-bold text-xs uppercase tracking-wider mb-2">
+          Convivencia Escolar y Disciplina
+        </div>
+        <h2 class="text-2xl md:text-4xl font-title font-bold text-slate-800">
+          🚫 Rules & Prohibitions <span class="text-rose-600">(Reglamento y Prohibiciones)</span>
+        </h2>
+        <p class="text-slate-600 max-w-2xl mx-auto text-xs md:text-sm mt-2">
+          Conductas no permitidas con <span class="font-bold text-rose-700 bg-rose-100 px-2 py-0.5 rounded-md">MUST NOT</span> y excepciones de normas con <span class="font-bold text-violet-700 bg-violet-100 px-2 py-0.5 rounded-md">DON'T HAVE TO</span>.
+        </p>
+      </div>
+
+      <!-- Sub-sección A: Prohibiciones Estrictas (Must Not) -->
+      <div class="mb-10">
+        <div class="flex items-center gap-2.5 mb-4">
+          <div class="w-8 h-8 rounded-xl bg-rose-200 border border-rose-300 text-rose-900 flex items-center justify-center font-bold text-sm">
+            ⛔
+          </div>
+          <div>
+            <h3 class="text-lg md:text-xl font-title font-bold text-slate-800">
+              Prohibiciones Estrictas <span class="text-rose-600 font-sans font-bold text-sm">(Must Not - Prohibitions)</span>
+            </h3>
+            <p class="text-xs text-slate-500">Conductas que conllevan sanción escolar inmediata en el plantel</p>
+          </div>
+        </div>
+
+        <div id="prohibitionsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <!-- Rendered via JS -->
+        </div>
+      </div>
+
+      <!-- Sub-sección B: Normas Flexibles y Permisos (Don't Have To) -->
+      <div>
+        <div class="flex items-center gap-2.5 mb-4">
+          <div class="w-8 h-8 rounded-xl bg-violet-200 border border-violet-300 text-violet-900 flex items-center justify-center font-bold text-sm">
+            💡
+          </div>
+          <div>
+            <h3 class="text-lg md:text-xl font-title font-bold text-slate-800">
+              Normas Flexibles y Permisos <span class="text-violet-600 font-sans font-bold text-sm">(Don't Have To - Exemptions & Permissions)</span>
+            </h3>
+            <p class="text-xs text-slate-500">Actividades que no son forzosas o que brindan flexibilidad al alumno</p>
+          </div>
+        </div>
+
+        <div id="permissionsGrid" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <!-- Rendered via JS -->
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- ======================================================== -->
+  <!-- LIGHTBOX / ZOOM FULLSCREEN MODAL DEL CROQUIS             -->
+  <!-- ======================================================== -->
+  <div id="lightboxModal" class="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-md hidden flex-col items-center justify-between p-4 no-print">
+    <!-- Lightbox Toolbar -->
+    <div class="w-full max-w-6xl flex items-center justify-between text-white py-2">
+      <div class="flex items-center gap-2">
+        <span class="text-xl">🏫</span>
+        <span class="font-title font-bold text-sm md:text-base">Croquis COBAY Plantel Peto • Vista en Pantalla Completa</span>
+      </div>
+      <div class="flex items-center gap-2">
+        <button onclick="zoomInMap()" title="Acercar" class="w-9 h-9 rounded-xl bg-white/20 hover:bg-white/30 text-white font-bold text-lg flex items-center justify-center">➕</button>
+        <button onclick="zoomOutMap()" title="Alejar" class="w-9 h-9 rounded-xl bg-white/20 hover:bg-white/30 text-white font-bold text-lg flex items-center justify-center">➖</button>
+        <button onclick="resetZoomMap()" title="Tamaño Original" class="px-3 h-9 rounded-xl bg-white/20 hover:bg-white/30 text-white font-bold text-xs flex items-center justify-center">100%</button>
+        <button onclick="closeLightbox()" class="w-9 h-9 rounded-xl bg-rose-500 hover:bg-rose-600 text-white font-bold text-base flex items-center justify-center ml-2">✕</button>
+      </div>
+    </div>
+
+    <!-- Image Canvas in Lightbox -->
+    <div class="flex-1 w-full max-w-6xl overflow-auto flex items-center justify-center p-2" id="lightboxScrollArea">
+      <img 
+        id="lightboxImg" 
+        src="croquis del COBAY_1.jpg" 
+        alt="Croquis de la escuela COBAY Plantel Peto Ampliado" 
+        class="max-w-full max-h-[80vh] object-contain rounded-2xl shadow-2xl transition-transform duration-200"
+        onerror="this.onerror=null; this.src='https://placehold.co/1200x800/E2F7EB/2E8B57?text=Croquis+COBAY+Plantel+Peto';"
+      />
+    </div>
+
+    <div class="text-stone-300 text-xs py-1 text-center">
+      Usa la rueda del ratón o los botones para hacer zoom • Presiona <kbd class="bg-white/20 px-1.5 py-0.5 rounded text-white font-mono">ESC</kbd> para cerrar
+    </div>
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- MODAL DE INFORMACIÓN DE ZONA ESCOLAR                     -->
+  <!-- ======================================================== -->
+  <div id="zoneModal" class="fixed inset-0 z-50 bg-slate-900/40 backdrop-blur-sm hidden items-center justify-center p-4 no-print">
+    <div class="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl border-4 border-stone-200 relative transform transition-all scale-95" id="zoneCard">
+      <div class="washi-tape h-4 w-32 absolute -top-2 left-1/2 -translate-x-1/2 rotate-1"></div>
+      
+      <button onclick="closeZoneModal()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-stone-100 hover:bg-stone-200 text-stone-600 font-bold flex items-center justify-center transition">
+        ✕
+      </button>
+
+      <div class="flex items-center gap-3 mb-3">
+        <span id="zoneModalIcon" class="text-3xl p-2.5 rounded-2xl bg-amber-100">🏫</span>
+        <div>
+          <span id="zoneModalTag" class="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800">Área Escolar</span>
+          <h3 id="zoneModalTitle" class="text-lg font-title font-bold text-slate-800">Nombre de la Zona</h3>
+        </div>
+      </div>
+
+      <p id="zoneModalDesc" class="text-xs md:text-sm text-slate-600 mb-4 leading-relaxed">
+        Descripción detallada de la ubicación física en el croquis.
+      </p>
+
+      <div class="space-y-2.5">
+        <div class="bg-emerald-50 border border-emerald-200 rounded-2xl p-3">
+          <h4 class="text-xs font-bold text-emerald-900 uppercase flex items-center gap-1 mb-1">
+            <span>✅</span> Obligación principal en este espacio:
+          </h4>
+          <p id="zoneModalObligation" class="text-xs text-emerald-800 font-medium">Norma obligatoria.</p>
+        </div>
+
+        <div class="bg-rose-50 border border-rose-200 rounded-2xl p-3">
+          <h4 class="text-xs font-bold text-rose-900 uppercase flex items-center gap-1 mb-1">
+            <span>🚫</span> Prohibición específica:
+          </h4>
+          <p id="zoneModalProhibition" class="text-xs text-rose-800 font-medium">Conducta prohibida.</p>
+        </div>
+      </div>
+
+      <div class="mt-5 flex justify-end">
+        <button onclick="closeZoneModal()" class="px-4 py-2 rounded-xl bg-slate-800 text-white font-title text-xs font-bold hover:bg-slate-700 transition">
+          Cerrar ventana
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- FOOTER                                                   -->
+  <!-- ======================================================== -->
+  <footer class="bg-white border-t border-stone-200 py-6 mt-12 text-center text-xs text-slate-500">
+    <div class="max-w-4xl mx-auto px-4">
+      <div class="flex items-center justify-center gap-2 mb-1.5 font-title text-sm font-bold text-slate-700">
+        <span>🏫</span> Colegio de Bachilleres del Estado de Yucatán • Plantel Peto
+      </div>
+      <p class="text-slate-500">Croquis de la escuela: sus reglamentos y prohibiciones</p>
+      <p class="text-slate-400 mt-0.5">Asignatura de Inglés y Convivencia Escolar • Colores pasteles y diseño responsivo</p>
+    </div>
+  </footer>
+
+  <!-- ======================================================== -->
+  <!-- JAVASCRIPT DATA & LOGIC                                 -->
+  <!-- ======================================================== -->
+  <script>
+    // Language mode: 'bilingual' | 'es' | 'en'
+    let currentLang = 'bilingual';
+
+    // Zoom level for the Croquis Lightbox
+    let currentZoom = 1;
+
+    // 1. ZONAS DEL CROQUIS (Interactive Badges)
+    const schoolZones = [
+      {
+        id: "domo",
+        name: "Domo Central",
+        tag: "Plaza Cívica",
+        icon: "🏛️",
+        badgeColor: "bg-teal-100 text-teal-800 border-teal-300",
+        desc: "Gran domo techado ubicado en el centro de la escuela, exactamente frente a la entrada principal. Lugar de homenajes, asambleas cívicas y actividades generales.",
+        obligation: "Students have to show respect during civic ceremonies and maintain orderly rows.",
+        prohibition: "Students must not push or run recklessly during crowded assemblies."
+      },
+      {
+        id: "aulas_3am",
+        name: "Salón 3AM",
+        tag: "Aulas Matutinas",
+        icon: "📝",
+        badgeColor: "bg-amber-100 text-amber-800 border-amber-300",
+        desc: "Aula de 3er semestre grupo A matutino, ubicada en el bloque académico derecho cercano a la sala de tutorías.",
+        obligation: "Students must participate actively in classroom discussions and bring textbooks.",
+        prohibition: "Students must not use cell phones without permission during class."
+      },
+      {
+        id: "aulas_3bm",
+        name: "Salón 3BM",
+        tag: "Aulas Matutinas",
+        icon: "📝",
+        badgeColor: "bg-amber-100 text-amber-800 border-amber-300",
+        desc: "Aula de 3er semestre grupo B matutino, contigua al salón 3AM y cercana al área de estacionamiento.",
+        obligation: "Students have to arrive on time and submit homework punctually.",
+        prohibition: "Students must not listen to music with headphones during class."
+      },
+      {
+        id: "aulas_3cm",
+        name: "Salón 3CM",
+        tag: "Aulas Matutinas",
+        icon: "📝",
+        badgeColor: "bg-amber-100 text-amber-800 border-amber-300",
+        desc: "Aula de 3er semestre grupo C matutino, situada debajo del almacén y la sala audiovisual.",
+        obligation: "Students must keep their desks tidy and organized every single day.",
+        prohibition: "Students must not copy other students' assignments."
+      },
+      {
+        id: "cafeteria",
+        name: "Cafetería y Comedor",
+        tag: "Alimentación",
+        icon: "🥪",
+        badgeColor: "bg-rose-100 text-rose-800 border-rose-300",
+        desc: "Área roja a la izquierda del croquis con comedor y expendio de alimentos higiénicos junto a las canchas deportivas.",
+        obligation: "Students have to form lines to purchase and deposit plates and cups in bins.",
+        prohibition: "Students must not throw food or leave litter on tables."
+      },
+      {
+        id: "basquet",
+        name: "Cancha de Básquetbol",
+        tag: "Deportes",
+        icon: "🏀",
+        badgeColor: "bg-orange-100 text-orange-800 border-orange-300",
+        desc: "Cancha deportiva con tableros ubicada en la esquina superior izquierda, cerca de la cafetería y los salones.",
+        obligation: "Students have to practice fair play and share the court during physical education.",
+        prohibition: "Students must not fight or play aggressively with classmates."
+      },
+      {
+        id: "biblioteca",
+        name: "Biblioteca",
+        tag: "Acervo & Estudio",
+        icon: "📖",
+        badgeColor: "bg-sky-100 text-sky-800 border-sky-300",
+        desc: "Acervo bibliográfico situado en el bloque administrativo, justo al lado de la Dirección y la Sala de Control.",
+        obligation: "Students must maintain silence and handle encyclopedias with care.",
+        prohibition: "Students must not eat food or drink beverages near the books."
+      },
+      {
+        id: "computo",
+        name: "Sala de Cómputo",
+        tag: "Tecnología",
+        icon: "💻",
+        badgeColor: "bg-cyan-100 text-cyan-800 border-cyan-300",
+        desc: "Laboratorio informático equipado con computadoras para prácticas e investigaciones digitales, junto a la sala de tutoría.",
+        obligation: "Students have to follow the instructor's technical instructions carefully.",
+        prohibition: "Students must not download unauthorized games or alter PC configurations."
+      },
+      {
+        id: "laboratorio",
+        name: "Laboratorio",
+        tag: "Ciencias",
+        icon: "🔬",
+        badgeColor: "bg-purple-100 text-purple-800 border-purple-300",
+        desc: "Instalación científica para experimentos de química, física y biología, ubicada frente al módulo de sanitarios.",
+        obligation: "Students must follow laboratory safety instructions and wear lab coats (Regla 12).",
+        prohibition: "Students must not handle chemical flasks without the teacher's supervision."
+      },
+      {
+        id: "banos",
+        name: "Baños de H y M",
+        tag: "Servicios Sanitarios",
+        icon: "🚻",
+        badgeColor: "bg-blue-100 text-blue-800 border-blue-300",
+        desc: "Servicios sanitarios separados para mujeres y hombres, ubicados convenientemente al lado del laboratorio escolar.",
+        obligation: "Students have to wash their hands and keep the water taps closed after use.",
+        prohibition: "Students must not write graffiti or waste water in the facilities."
+      },
+      {
+        id: "tutoria",
+        name: "Sala de Tutoría",
+        tag: "Orientación",
+        icon: "👥",
+        badgeColor: "bg-emerald-100 text-emerald-800 border-emerald-300",
+        desc: "Cubículo de acompañamiento académico y pedagógico personalizado, contiguo a la sala de cómputo.",
+        obligation: "Students have to attend their scheduled tutoring appointments.",
+        prohibition: "Students must not interrupt private counseling sessions."
+      },
+      {
+        id: "direccion",
+        name: "Dirección y Prefectura",
+        tag: "Administración",
+        icon: "👔",
+        badgeColor: "bg-stone-200 text-stone-800 border-stone-300",
+        desc: "Oficinas de Dirección escolar y Prefectura para gestión institucional, justificantes y control escolar.",
+        obligation: "Students must wear the complete uniform properly when visiting offices.",
+        prohibition: "Students must not enter private staff offices without knock-and-call permission."
+      },
+      {
+        id: "estacionamiento",
+        name: "Estacionamiento",
+        tag: "Vehículos",
+        icon: "🚗",
+        badgeColor: "bg-green-100 text-green-800 border-green-300",
+        desc: "Extensa área verde/pavimentada en todo el costado derecho para vehículos de docentes y personal.",
+        obligation: "Drivers have to drive under 10 km/h in school premises.",
+        prohibition: "Students must not stay or play in the parking lot during class time."
+      },
+      {
+        id: "campo",
+        name: "Campo Deportivo",
+        tag: "Césped / Fútbol",
+        icon: "⚽",
+        badgeColor: "bg-lime-100 text-lime-800 border-lime-300",
+        desc: "Gran campo deportivo al fondo de la escuela, detrás de los salones de clase. Ideal para fútbol y actividades atléticas.",
+        obligation: "Students have to keep the natural grass clean and pick up sports gear.",
+        prohibition: "Students must not litter in the field or damage perimeter netting."
+      }
+    ];
+
+    // 2. 16 OBLIGACIONES ESCOLARES (Numeradas del 01 al 16 con MUST y HAVE TO)
+    const obligationsList = [
+      {
+        id: "01",
+        modal: "MUST",
+        en: "Students must wear the school uniform.",
+        es: "Los estudiantes deben usar el uniforme escolar.",
+        icon: "👔",
+        color: "bg-pink-50 border-pink-300 text-pink-900"
+      },
+      {
+        id: "02",
+        modal: "HAVE TO",
+        en: "Students have to arrive on time.",
+        es: "Los estudiantes tienen que llegar a tiempo.",
+        icon: "⏰",
+        color: "bg-amber-50 border-amber-300 text-amber-900"
+      },
+      {
+        id: "03",
+        modal: "MUST",
+        en: "Students must respect teachers and classmates.",
+        es: "Los estudiantes deben respetar a los profesores y compañeros.",
+        icon: "🤝",
+        color: "bg-emerald-50 border-emerald-300 text-emerald-900"
+      },
+      {
+        id: "04",
+        modal: "HAVE TO",
+        en: "Students have to complete and submit their assignments.",
+        es: "Los estudiantes tienen que completar y entregar sus tareas.",
+        icon: "📋",
+        color: "bg-sky-50 border-sky-300 text-sky-900"
+      },
+      {
+        id: "05",
+        modal: "MUST",
+        en: "Students must keep their classrooms clean.",
+        es: "Los estudiantes deben mantener sus aulas limpias.",
+        icon: "🧹",
+        color: "bg-purple-50 border-purple-300 text-purple-900"
+      },
+      {
+        id: "06",
+        modal: "MUST",
+        en: "Students must bring their school supplies.",
+        es: "Los estudiantes deben traer sus útiles escolares.",
+        icon: "✏️",
+        color: "bg-rose-50 border-rose-300 text-rose-900"
+      },
+      {
+        id: "07",
+        modal: "HAVE TO",
+        en: "Students have to attend their classes.",
+        es: "Los estudiantes tienen que asistir a sus clases.",
+        icon: "🎒",
+        color: "bg-yellow-50 border-yellow-300 text-yellow-900"
+      },
+      {
+        id: "08",
+        modal: "HAVE TO",
+        en: "Students have to respect school rules.",
+        es: "Los estudiantes tienen que respetar las normas escolares.",
+        icon: "📜",
+        color: "bg-teal-50 border-teal-300 text-teal-900"
+      },
+      {
+        id: "09",
+        modal: "MUST",
+        en: "Students must participate actively in classroom discussions.",
+        es: "Los estudiantes deben participar activamente en clase.",
+        icon: "🗣️",
+        color: "bg-indigo-50 border-indigo-300 text-indigo-900"
+      },
+      {
+        id: "10",
+        modal: "MUST",
+        en: "Students must raise their hand before speaking.",
+        es: "Los estudiantes deben levantar la mano antes de hablar.",
+        icon: "🙋",
+        color: "bg-blue-50 border-blue-300 text-blue-900"
+      },
+      {
+        id: "11",
+        modal: "MUST",
+        en: "Students must work collaboratively during group projects.",
+        es: "Los estudiantes deben trabajar en equipo colaborativamente.",
+        icon: "👥",
+        color: "bg-amber-50 border-amber-300 text-amber-900"
+      },
+      {
+        id: "12",
+        modal: "MUST",
+        en: "Students must follow laboratory safety instructions.",
+        es: "Los estudiantes deben seguir las instrucciones de seguridad en el laboratorio.",
+        icon: "🥽",
+        color: "bg-emerald-50 border-emerald-300 text-emerald-900"
+      },
+      {
+        id: "13",
+        modal: "HAVE TO",
+        en: "Students have to pay attention during the teacher's explanation.",
+        es: "Los estudiantes tienen que prestar atención a la explicación docente.",
+        icon: "👂",
+        color: "bg-pink-50 border-pink-300 text-pink-900"
+      },
+      {
+        id: "14",
+        modal: "HAVE TO",
+        en: "Students have to bring their textbooks every day.",
+        es: "Los estudiantes tienen que traer sus libros de texto diariamente.",
+        icon: "📚",
+        color: "bg-cyan-50 border-cyan-300 text-cyan-900"
+      },
+      {
+        id: "15",
+        modal: "HAVE TO",
+        en: "Students have to keep their desks tidy and organized.",
+        es: "Los estudiantes tienen que mantener sus escritorios ordenados.",
+        icon: "📐",
+        color: "bg-violet-50 border-violet-300 text-violet-900"
+      },
+      {
+        id: "16",
+        modal: "HAVE TO",
+        en: "Students have to practice honesty during exams.",
+        es: "Los estudiantes tienen que ser honestos durante los exámenes.",
+        icon: "✍️",
+        color: "bg-lime-50 border-lime-300 text-lime-900"
+      }
+    ];
+
+    // 3. REGLAMENTOS Y PROHIBICIONES
+    const prohibitionsList = [
+      {
+        modal: "MUST NOT",
+        en: "Students must not fight with their classmates.",
+        es: "Prohibido pelear o discutir con agresividad con compañeros.",
+        icon: "🙅‍♂️",
+        tip: "Fomentar el diálogo pacífico"
+      },
+      {
+        modal: "MUST NOT",
+        en: "Students must not litter in the school.",
+        es: "Prohibido tirar basura en el plantel (patio, aulas, áreas verdes).",
+        icon: "🚯",
+        tip: "Deposita tus desechos en el bote de basura"
+      },
+      {
+        modal: "MUST NOT",
+        en: "Students must not use their cell phones during class without permission.",
+        es: "Prohibido usar celulares en horas de clase sin autorización docente.",
+        icon: "📵",
+        tip: "Mantén el dispositivo en silencio dentro de tu mochila"
+      },
+      {
+        modal: "MUST NOT",
+        en: "Students must not eat during class.",
+        es: "Prohibido ingerir alimentos y golosinas en el salón de clases.",
+        icon: "🍔🚫",
+        tip: "Usa el comedor y cafetería en receso"
+      },
+      {
+        modal: "MUST NOT",
+        en: "Students must not copy other students' homework.",
+        es: "Prohibido copiar tareas ajenas o plagiar exámenes escolares.",
+        icon: "📑❌",
+        tip: "Valora tu propio esfuerzo académico"
+      },
+      {
+        modal: "MUST NOT",
+        en: "Students must not listen to music with headphones during class.",
+        es: "Prohibido usar audífonos para escuchar música en clase.",
+        icon: "🎧🚫",
+        tip: "Atención plena a las clases del maestro"
+      }
+    ];
+
+    const permissionsList = [
+      {
+        modal: "DON'T HAVE TO",
+        en: "Students don't have to stay in the classroom during the short break.",
+        es: "Los estudiantes no tienen que quedarse dentro del aula durante el receso corto (pueden salir al domo, cancha o cafetería).",
+        icon: "🌤️",
+        badge: "Descanso y Convivencia"
+      },
+      {
+        modal: "DON'T HAVE TO",
+        en: "Students don't have to wear formal shoes on Fridays.",
+        es: "Los estudiantes no tienen que usar zapatos formales los viernes (pueden portar tenis escolares limpios).",
+        icon: "👟",
+        badge: "Flexibilidad de Uniforme"
+      }
+    ];
+
+    // Initialize Zone Badges
+    function renderZoneBadges() {
+      const container = document.getElementById('zonePillsContainer');
+      container.innerHTML = schoolZones.map(zone => `
+        <button onclick="openZoneModal('${zone.id}')" 
+                class="px-3 py-1.5 rounded-xl border ${zone.badgeColor} hover:scale-105 active:scale-95 transition shadow-sm flex items-center gap-1.5">
+          <span>${zone.icon}</span>
+          <span>${zone.name}</span>
+        </button>
+      `).join('');
+    }
+
+    // Render 16 Obligations
+    function renderObligations() {
+      const container = document.getElementById('obligationsGrid');
+      container.innerHTML = obligationsList.map(item => {
+        const isMust = item.modal === 'MUST';
+        const modalBadge = isMust 
+          ? 'bg-emerald-600 text-white' 
+          : 'bg-blue-600 text-white';
+
+        return `
+          <div class="sticky-note rounded-2xl p-4 bg-white border-2 ${item.color} shadow-sticky flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-2">
+                <span class="font-title font-bold text-xs bg-stone-100 text-stone-700 px-2 py-0.5 rounded-lg border border-stone-200">
+                  N° ${item.id}
+                </span>
+                <span class="text-[11px] font-bold px-2 py-0.5 rounded-md ${modalBadge}">
+                  ${item.modal}
+                </span>
+              </div>
+              
+              <div class="flex items-start gap-2.5 my-2">
+                <span class="text-2xl">${item.icon}</span>
+                <div class="flex-1">
+                  <p class="font-bold text-slate-800 text-sm leading-snug ${currentLang === 'es' ? 'hidden' : ''}">
+                    ${item.en}
+                  </p>
+                  <p class="text-xs text-slate-600 mt-1 leading-relaxed ${currentLang === 'en' ? 'hidden' : ''}">
+                    ${item.es}
+                  </p>
+                </div>
+              </div>
+            </div>
+            
+            <div class="pt-2 mt-2 border-t border-stone-100/80 flex items-center justify-between text-[11px] text-stone-400">
+              <span>Norma COBAY</span>
+              <span class="font-semibold text-stone-600">${isMust ? 'Deber esencial' : 'Regla formal'}</span>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    // Render Prohibitions & Permissions
+    function renderProhibitions() {
+      const pContainer = document.getElementById('prohibitionsGrid');
+      pContainer.innerHTML = prohibitionsList.map(item => `
+        <div class="rounded-2xl p-4 bg-rose-50/80 border-2 border-rose-200 shadow-sm flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-[11px] font-bold px-2 py-0.5 rounded-md bg-rose-600 text-white">
+                MUST NOT
+              </span>
+              <span class="text-2xl">${item.icon}</span>
+            </div>
+            <p class="font-bold text-rose-950 text-sm leading-snug mb-1 ${currentLang === 'es' ? 'hidden' : ''}">
+              ${item.en}
+            </p>
+            <p class="text-xs text-rose-800 leading-relaxed ${currentLang === 'en' ? 'hidden' : ''}">
+              ${item.es}
+            </p>
+          </div>
+          <div class="mt-3 bg-white/80 rounded-xl px-2.5 py-1 text-[11px] text-rose-700 font-semibold border border-rose-200">
+            💡 ${item.tip}
+          </div>
+        </div>
+      `).join('');
+
+      const permContainer = document.getElementById('permissionsGrid');
+      permContainer.innerHTML = permissionsList.map(item => `
+        <div class="rounded-2xl p-4 bg-violet-50/80 border-2 border-violet-200 shadow-sm flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-[11px] font-bold px-2 py-0.5 rounded-md bg-violet-600 text-white">
+                DON'T HAVE TO
+              </span>
+              <span class="text-2xl">${item.icon}</span>
+            </div>
+            <p class="font-bold text-violet-950 text-sm leading-snug mb-1 ${currentLang === 'es' ? 'hidden' : ''}">
+              ${item.en}
+            </p>
+            <p class="text-xs text-violet-800 leading-relaxed ${currentLang === 'en' ? 'hidden' : ''}">
+              ${item.es}
+            </p>
+          </div>
+          <div class="mt-3 bg-white/80 rounded-xl px-2.5 py-1 text-[11px] text-violet-700 font-semibold border border-violet-200">
+            ✨ ${item.badge}
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // Modal Details for Zones
+    function openZoneModal(zoneId) {
+      const zone = schoolZones.find(z => z.id === zoneId);
+      if (!zone) return;
+
+      document.getElementById('zoneModalIcon').innerText = zone.icon;
+      document.getElementById('zoneModalTag').innerText = zone.tag;
+      document.getElementById('zoneModalTitle').innerText = zone.name;
+      document.getElementById('zoneModalDesc').innerText = zone.desc;
+      document.getElementById('zoneModalObligation').innerText = zone.obligation;
+      document.getElementById('zoneModalProhibition').innerText = zone.prohibition;
+
+      const modal = document.getElementById('zoneModal');
+      const card = document.getElementById('zoneCard');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      setTimeout(() => {
+        card.classList.remove('scale-95');
+        card.classList.add('scale-100');
+      }, 10);
+    }
+
+    function closeZoneModal() {
+      const modal = document.getElementById('zoneModal');
+      const card = document.getElementById('zoneCard');
+      card.classList.remove('scale-100');
+      card.classList.add('scale-95');
+      setTimeout(() => {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+      }, 150);
+    }
+
+    // Lightbox / Image Zoom logic
+    function openLightbox() {
+      const modal = document.getElementById('lightboxModal');
+      currentZoom = 1;
+      updateLightboxZoom();
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+
+    function closeLightbox() {
+      const modal = document.getElementById('lightboxModal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+
+    function zoomInMap() {
+      if (currentZoom < 2.5) {
+        currentZoom += 0.25;
+        updateLightboxZoom();
+      }
+    }
+
+    function zoomOutMap() {
+      if (currentZoom > 0.6) {
+        currentZoom -= 0.25;
+        updateLightboxZoom();
+      }
+    }
+
+    function resetZoomMap() {
+      currentZoom = 1;
+      updateLightboxZoom();
+    }
+
+    function updateLightboxZoom() {
+      const img = document.getElementById('lightboxImg');
+      img.style.transform = `scale(${currentZoom})`;
+    }
+
+    // Language Toggle
+    function cycleLanguage() {
+      if (currentLang === 'bilingual') {
+        currentLang = 'en';
+        document.getElementById('langModeText').innerText = 'Only English';
+      } else if (currentLang === 'en') {
+        currentLang = 'es';
+        document.getElementById('langModeText').innerText = 'Solo Español';
+      } else {
+        currentLang = 'bilingual';
+        document.getElementById('langModeText').innerText = 'Bilingüe (EN/ES)';
+      }
+      renderObligations();
+      renderProhibitions();
+    }
+
+    // Search input handler
+    function handleSearch() {
+      const query = document.getElementById('globalSearchInput').value.toLowerCase().trim();
+      const clearBtn = document.getElementById('clearSearchBtn');
+      const status = document.getElementById('searchStatus');
+
+      if (query.length > 0) {
+        clearBtn.classList.remove('hidden');
+      } else {
+        clearBtn.classList.add('hidden');
+        status.classList.add('hidden');
+        resetSearchHighlights();
+        return;
+      }
+
+      let matches = 0;
+
+      // Filter obligations
+      document.querySelectorAll('.sticky-note').forEach((card, index) => {
+        const item = obligationsList[index];
+        const match = item.en.toLowerCase().includes(query) ||
+                      item.es.toLowerCase().includes(query) ||
+                      item.modal.toLowerCase().includes(query);
+        if (match) {
+          card.classList.add('ring-4', 'ring-amber-400');
+          card.style.opacity = '1';
+          matches++;
+        } else {
+          card.classList.remove('ring-4', 'ring-amber-400');
+          card.style.opacity = '0.35';
+        }
+      });
+
+      status.classList.remove('hidden');
+      status.innerText = `Resultados para "${query}": ${matches} obligaciones coincidentes.`;
+    }
+
+    function clearSearch() {
+      document.getElementById('globalSearchInput').value = '';
+      document.getElementById('clearSearchBtn').classList.add('hidden');
+      document.getElementById('searchStatus').classList.add('hidden');
+      resetSearchHighlights();
+    }
+
+    function resetSearchHighlights() {
+      document.querySelectorAll('.sticky-note').forEach(c => {
+        c.classList.remove('ring-4', 'ring-amber-400');
+        c.style.opacity = '1';
+      });
+    }
+
+    // Close on click outside & ESC key
+    document.getElementById('zoneModal').addEventListener('click', function(e) {
+      if (e.target === this) closeZoneModal();
+    });
+
+    document.getElementById('lightboxModal').addEventListener('click', function(e) {
+      if (e.target === this || e.target.id === 'lightboxScrollArea') closeLightbox();
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeZoneModal();
+        closeLightbox();
+      }
+    });
+
+    // Lightbox mouse wheel zoom
+    document.getElementById('lightboxScrollArea').addEventListener('wheel', (e) => {
+      e.preventDefault();
+      if (e.deltaY < 0) {
+        zoomInMap();
+      } else {
+        zoomOutMap();
+      }
+    });
+
+    // Window load initialisation
+    window.onload = function() {
+      renderZoneBadges();
+      renderObligations();
+      renderProhibitions();
+    };
+  </script>
+</body>
+</html>
